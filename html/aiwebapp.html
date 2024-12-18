@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRON Game: Player vs AI</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    h1 {
+      font-size: 3em;
+      color: cyan;
+      text-shadow: 0 0 20px cyan;
+    }
+    canvas {
+      border: 2px solid white;
+      display: block;
+      margin: 20px auto;
+    }
+    button {
+      display: none;
+      font-size: 1.5em;
+      padding: 10px 20px;
+      background-color: cyan;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: white;
+      color: cyan;
+    }
+  </style>
+</head>
+<body>
+  <h1>TRON: Player vs AI</h1>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+  <button id="restartButton">Restart</button>
+  <a href="../index.html" id="resumeLink">Back to my resume!</a>
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const restartButton = document.getElementById("restartButton");
+
+    const gridSize = 20;
+    const rows = canvas.height / gridSize;
+    const cols = canvas.width / gridSize;
+
+    let player, ai, gameOver;
+
+    function resetGame() {
+      player = { x: 5, y: 5, direction: "RIGHT", trail: [] };
+      ai = { x: cols - 6, y: rows - 6, direction: "LEFT", trail: [] };
+      gameOver = false;
+
+      restartButton.style.display = "none";
+      gameLoop();
+    }
+
+    function drawGrid() {
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawTrail(trail, color) {
+      ctx.fillStyle = color;
+      for (const segment of trail) {
+        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+      }
+    }
+
+    function move(entity) {
+      switch (entity.direction) {
+        case "UP": entity.y -= 1; break;
+        case "DOWN": entity.y += 1; break;
+        case "LEFT": entity.x -= 1; break;
+        case "RIGHT": entity.x += 1; break;
+      }
+      entity.trail.push({ x: entity.x, y: entity.y });
+    }
+
+    function aiLogic() {
+      const possibleMoves = [
+        { direction: "UP", dx: 0, dy: -1 },
+        { direction: "DOWN", dx: 0, dy: 1 },
+        { direction: "LEFT", dx: -1, dy: 0 },
+        { direction: "RIGHT", dx: 1, dy: 0 },
+      ];
+
+      const safeMoves = possibleMoves.filter(move => {
+        const newX = ai.x + move.dx;
+        const newY = ai.y + move.dy;
+        return (
+          newX >= 0 &&
+          newX < cols &&
+          newY >= 0 &&
+          newY < rows &&
+          !ai.trail.some(segment => segment.x === newX && segment.y === newY) &&
+          !player.trail.some(segment => segment.x === newX && segment.y === newY)
+        );
+      });
+
+      if (safeMoves.length > 0) {
+        safeMoves.sort((a, b) => {
+          const distA = Math.abs((ai.x + a.dx) - player.x) + Math.abs((ai.y + a.dy) - player.y);
+          const distB = Math.abs((ai.x + b.dx) - player.x) + Math.abs((ai.y + b.dy) - player.y);
+          return distA - distB;
+        });
+        ai.direction = safeMoves[0].direction;
+      }
+    }
+
+    function checkCollision(entity, opponentTrail) {
+      if (entity.x < 0 || entity.x >= cols || entity.y < 0 || entity.y >= rows) return true;
+      for (const segment of opponentTrail) {
+        if (entity.x === segment.x && entity.y === segment.y) return true;
+      }
+      for (let i = 0; i < entity.trail.length - 1; i++) {
+        if (entity.x === entity.trail[i].x && entity.y === entity.trail[i].y) return true;
+      }
+      return false;
+    }
+
+    function checkGameOver() {
+      const playerCollision = checkCollision(player, ai.trail);
+      const aiCollision = checkCollision(ai, player.trail);
+
+      if (playerCollision || aiCollision) {
+        gameOver = true;
+        const winner = playerCollision
+          ? "AI Wins!"
+          : "Player Wins!";
+        alert(winner);
+        restartButton.style.display = "block";
+      }
+    }
+
+    function gameLoop() {
+      if (gameOver) return;
+
+      drawGrid();
+      drawTrail(player.trail, "blue");
+      drawTrail(ai.trail, "red");
+
+      move(player);
+      aiLogic();
+      move(ai);
+
+      checkGameOver();
+      setTimeout(() => requestAnimationFrame(gameLoop), 100);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case "w": if (player.direction !== "DOWN") player.direction = "UP"; break;
+        case "s": if (player.direction !== "UP") player.direction = "DOWN"; break;
+        case "a": if (player.direction !== "RIGHT") player.direction = "LEFT"; break;
+        case "d": if (player.direction !== "LEFT") player.direction = "RIGHT"; break;
+      }
+    });
+
+    restartButton.addEventListener("click", resetGame);
+
+    resetGame();
+  </script>
+</body>
+</html>

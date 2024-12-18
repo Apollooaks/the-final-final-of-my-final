@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Title -->
+    <title>My Favorite Hobbies</title>
+
+    <!-- External CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/scratch.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container text-center">
+            <h1 id="favorite-hobbies" class="display-4">My Favorite Hobbies</h1>
+            <nav>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#golf">Golf</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#broadcasting">Broadcasting Sports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#weightlifting">Weightlifting & Protein</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mt-5">
+        <!-- Golf Section -->
+        <section id="golf" class="my-5">
+            <h2 class="text-center">Golf</h2>
+            <div class="text-center">
+                <img src="../assets/golf.jpg" 
+                     alt="Two friends smiling on a golf course" 
+                     class="img-fluid rounded shadow" 
+                     style="max-width: 600px;">
+            </div>
+            <div class="text-center">
+            <div class="row mt-4" style="color: black;">
+                <div class="col-md-6">
+                    <h4>Equipment</h4>
+                    <ul>
+                        <li>Clubs: 6 Iron and Driver... everything else is extra</li>
+                        <li>Balls: (Titelist 4)</li>
+                        <li>Tees: Any plastic kind although I love when the wood breaks! It's just hard replacing them... too much money</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Other Golf Interests</h4>
+                    <ul>
+                        <li>Favorite Courses: Fox Hollow. The Oaks at Spanish Fork (because my last name is Oaks)</li>
+                        <li>Techniques: Hitting the ball hard and far and in the right direction</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Broadcasting Section -->
+        <section id="broadcasting" class="my-5">
+            <h2 class="text-center">Broadcasting Sports</h2>
+            <p class="text-center">Check out this video on sports broadcasting from a company my dad started:</p>
+            <div class="text-center">
+                <iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/MfBfeTTVVuE" 
+                        frameborder="0" allowfullscreen
+                        title="Sports Broadcasting Video"></iframe>
+            </div>
+        </section>
+
+        <!-- Tableau Section -->
+        <section id="tableau" class="my-5">
+            <h2 class="text-center">NFL History Visualization: notice how the Detroit Lions lost every game in 2008? That's not the case anymore. They are the best!</h2>
+            <div id="tableau-viz" class="text-center">
+                <div class='tableauPlaceholder' id='viz1734456487875' style='position: relative;'>
+                    <noscript>
+                        <a href='#'>
+                            <img alt='The History of the NFL' 
+                                 src='https://public.tableau.com/static/images/Th/TheHistoryoftheNFL/TheHistoryoftheNFL/1_rss.png' 
+                                 style='border: none'>
+                        </a>
+                    </noscript>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='embed_code_version' value='3' />
+                        <param name='site_root' value='' />
+                        <param name='name' value='TheHistoryoftheNFL&#47;TheHistoryoftheNFL' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                        <param name='static_image' value='https://public.tableau.com/static/images/Th/TheHistoryoftheNFL/TheHistoryoftheNFL/1.png' />
+                        <param name='animate_transition' value='yes' />
+                        <param name='display_static_image' value='yes' />
+                        <param name='display_spinner' value='yes' />
+                        <param name='display_overlay' value='yes' />
+                        <param name='display_count' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+                <script type='text/javascript'>
+                    var divElement = document.getElementById('viz1734456487875');
+                    var vizElement = divElement.getElementsByTagName('object')[0];
+                    vizElement.style.width = '800px';
+                    vizElement.style.height = '1027px';
+                    var scriptElement = document.createElement('script');
+                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+                </script>
+            </div>
+        </section>
+
+        <!-- Weightlifting Section -->
+        <section id="weightlifting" class="my-5">
+            <h2 class="text-center">Weightlifting & Protein</h2>
+            <div class="text-center">
+            <img src="../Class/images/Arnold.jpg"
+            alt="Arnold" 
+            class="img-fluid rounded shadow" 
+            style="max-width: 600px;">
+            </div>
+            <p class="text-center">
+                I absolutely love learning about weightlifting techniques and the importance of protein for muscle development. It's exciting to see growth in my perfomance through hard work.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>
+            <a href="../index.html" class="text-white">Back to my Resume</a>
+        </p>
+    </footer>
+</body>
+</html>
